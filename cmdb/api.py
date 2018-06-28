@@ -101,6 +101,8 @@ def collect(request):
         osver = asset_info['osver']
         hostname = asset_info['hostname']
         ip = asset_info['ip']
+        mgm_ip = asset_info['mgm_ip']
+        terminal_user = asset_info['terminal_user']
         # asset_type = ""
         # status = ""
         try:
@@ -133,6 +135,8 @@ def collect(request):
         host.os = osver
         host.vendor = vendor
         host.ip = ip
+        host.mgm_ip = mgm_ip
+        host.terminal_user = terminal_user
         # host.asset_type = asset_type
         # host.status = status
         host.save()

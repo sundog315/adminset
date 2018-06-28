@@ -21,6 +21,11 @@ ASSET_TYPE = (
     (str(6), u"其他")
     )
 
+OS_TYPE = (
+    (str(0), u"Linux"),
+    (str(1), u"Windows")
+    )
+
 
 class UserInfo(models.Model):
     username = models.CharField(max_length=30,null=True)
@@ -59,7 +64,10 @@ class HostGroup(models.Model):
 class Host(models.Model):
     hostname = models.CharField(max_length=50, verbose_name=u"主机名", unique=True)
     ip = models.GenericIPAddressField(u"管理IP", max_length=15)
+    mgm_ip = models.GenericIPAddressField(u"带外IP", max_length=15, null=True, blank=True)
     other_ip = models.CharField(u"其它IP", max_length=100, null=True, blank=True)
+    os_type = models.CharField(u"系统类型", choices=OS_TYPE, max_length=30, null=True, blank=True)
+    terminal_user = models.CharField(u"终端连接用户", max_length=30, null=True, blank=True)
     group = models.ForeignKey(HostGroup, verbose_name=u"设备组", on_delete=models.SET_NULL, null=True, blank=True)
     asset_no = models.CharField(u"资产编号", max_length=50, null=True, blank=True)
     asset_type = models.CharField(u"设备类型", choices=ASSET_TYPE, max_length=30, null=True, blank=True)
